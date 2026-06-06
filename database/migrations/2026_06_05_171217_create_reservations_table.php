@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('shop_id')->constrained()->cascadeOnDelete();
+            $table->dateTime('reserved_at');
+            $table->string('status')->default('pending');
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }
