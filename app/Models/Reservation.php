@@ -3,8 +3,29 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Reservation extends Model
 {
-    //
+    protected $fillable = [
+        'user_id',
+        'shop_id',
+        'reserved_at',
+        'status',
+        'note',
+    ];
+
+    protected $casts = [
+        'reserved_at' => 'datetime',
+    ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function shop(): BelongsTo
+    {
+        return $this->belongsTo(Shop::class);
+    }
 }
