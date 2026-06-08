@@ -8,46 +8,36 @@ use Illuminate\Auth\Access\Response;
 
 class ReservationPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
+    // 予約一覧：本人のみ
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->role === 'user';
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
+    // 予約詳細：本人のみ
     public function view(User $user, Reservation $reservation): bool
     {
-        return false;
+        return $user->id === $reservation->user_id;
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
+    // 予約作成：一般ユーザーのみ
     public function create(User $user): bool
     {
-        return false;
+        return $user->role === 'user';
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
+    // 予約編集：本人のみ
     public function update(User $user, Reservation $reservation): bool
     {
-        return false;
+        return $user->id === $reservation->user_id;
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
+    // 予約削除：本人のみ
     public function delete(User $user, Reservation $reservation): bool
     {
-        return false;
+        return $user->id === $reservation->user_id;
     }
-
+    
     /**
      * Determine whether the user can restore the model.
      */
