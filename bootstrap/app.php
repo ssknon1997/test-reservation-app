@@ -12,7 +12,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        //ownerというエイリアス(あだ名)を設定してweb.phpでmiddleware('owner')で呼び出せるようになる
+        $middleware->alias([
+            'owner' => \App\Http\Middleware\EnsureUserIsOwner::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
