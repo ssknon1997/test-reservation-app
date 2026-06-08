@@ -12,6 +12,8 @@ class UpdateShopRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        //$this->user() Form Requestクラスが持つ機能です。「現在ログインしているユーザー（Userモデルのインスタンス）」 を自動的に取得します。
+        //isowner userモデルのメソッドを呼び出す
         return $this->user()->isOwner();
     }
 
