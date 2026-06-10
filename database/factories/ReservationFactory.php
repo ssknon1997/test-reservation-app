@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Reservation;
+use App\Models\Shop;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,9 +21,10 @@ class ReservationFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'name' => fake()->company,
-            'description' => fake()->text(100),
-            'address' => fake->address(),
+            'shop_id' => Shop::factory(),
+            'reserved_at' => fake()->dateTimeBetween('now', '+1 month'),
+            'status' => fake()->randomElement(['pending', 'confirmed', 'cancelled']),
+            'note' => fake()->optional()->text(50),
         ];
     }
 }
