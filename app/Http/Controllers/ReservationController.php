@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Reservation;
+use App\Models\Shop;
+use App\Http\Requests\StoreReservationRequest;
+use App\Http\Requests\UpdateReservationRequest;
 
 class ReservationController extends Controller
 {
@@ -11,7 +14,15 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        //
+        //reservationsから特定のデータがないのでReservation::class
+        $this->authorize('viewAny', Reservation::class);
+        //認証されたユーザーの予約情報とその中の店舗を最新順に10件ずつ表示
+        $reservations = auth()->user()
+            ->reservations()
+            ->with('shop')
+            ->latest()
+            ->pagenate(10);
+        return view('reservations.index', compact('reservations'));
     }
 
     /**
@@ -19,46 +30,58 @@ class ReservationController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('create', Reservation::class);
+        $shops = Shop::all();
+        return view('reservation.create', compact('shops'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreReservationRequest $request)
     {
-        //
+        auth()->user()->reservations()->create($request->validated());
+        return redirect()->route('reservation.index')
+            ->with('succes', '予約を作成しました');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Reservation $reservation)
     {
-        //
+        $this->authorize('view', $reservation);
+        return view('reservations.show', compact('reservation'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Reservation $reservation)
     {
-        //
+        $this->authorize('update', $reservation);
+        return view('reservations.edit', compact('reservation'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateReservationRequest $request, Reservation $reservation)
     {
-        //
+        $this->authorize('update', $reservation);
+        $reservation->update($request->validated());
+        return redirect()->route(reservation.index)
+            ->with('succes', '予約を更新しました');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Reservation $reservation)
     {
-        //
+        $this->authorize('delete', $reservation);
+        $reservation->delete();
+        return redirect()->route('reservation.index')
+            ->with('succes', '予約をキャンセルしました');
     }
 }

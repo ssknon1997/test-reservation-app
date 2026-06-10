@@ -30,7 +30,7 @@ class User extends Authenticatable
         return $this->hasMany(Shop::class);
     }
 
-    public function reservation(): HasMany
+    public function reservations(): HasMany
     {
         return $this->hasMany(Reservation::class);
     }
