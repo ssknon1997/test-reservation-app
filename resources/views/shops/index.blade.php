@@ -25,7 +25,7 @@
             @foreach($shops as $shop)
             <div class="bg-white rounded-lg shadow p-6">
                 <h2 class="text-xl font-semibold mb-2">{{ $shop->name }}</h2>
-                <p class="text-gray-600 mb-2">{{ $shop->addres }}</p>
+                <p class="text-gray-600 mb-2">{{ $shop->address }}</p>
                 <p class="text-gray-500 text-sm mb-4">{{ Str::limit($shop->description, 80) }}</p>
                 <a href="{{ route('shops.show', $shop)}}"
                 class="text-blue-500 hover:underline">詳細を見る</a>

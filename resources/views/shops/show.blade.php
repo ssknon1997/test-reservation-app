@@ -21,10 +21,11 @@
                     @can('update', $shop)
                         <a href="{{ route('shops.edit', $shop) }}"
                             class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-                            予約する
+                            編集する
                         </a>
 
                         <form action="{{ route('shops.destroy', $shop) }}" method="POST"
+                            {{-- JSの確認ダイアログ表示 --}}
                             onsubmit="return confirm('削除しますか？')">
                             @csrf
                             @method('DELETE')
