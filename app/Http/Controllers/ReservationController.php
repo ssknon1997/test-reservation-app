@@ -31,8 +31,9 @@ class ReservationController extends Controller
     public function create()
     {
         $this->authorize('create', Reservation::class);
+        $shop = request('shop_id') ? Shop::findOrFail(request('shop_id')) : null;
         $shops = Shop::all();
-        return view('reservation.create', compact('shops'));
+        return view('reservation.create', compact('shops', 'shop'));
     }
 
     /**
