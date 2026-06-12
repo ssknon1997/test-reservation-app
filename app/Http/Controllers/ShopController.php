@@ -15,7 +15,7 @@ class ShopController extends Controller
 
     public function create()
     {
-        // $this->authorize('create', Shop::class);
+        $this->authorize('create', Shop::class);
         return view('shops.create');
     }
 
