@@ -4,18 +4,19 @@
     </x-slot>
 
     <div class="max-w-2xl mx-auto px-4 py-8">
-        <form action="{{ route('reservations.update', $reservations) }}" method="POST" class="bg-white rounded-lg shadow p-6">
+        <form action="{{ route('reservations.update', $reservation) }}" method="POST" class="bg-white rounded-lg shadow p-6">
             @csrf
             @method('PUT')
 
             <div class="mb-4">
-                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">店舗</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1">店舗</label>
                 <p class="text-gray-800 px-3 py-2 bg-gray-50 rounded">{{ $reservation->shop->name }}</p>
             </div>
 
             <div class="mb-4">
-                <label for="reserved_at" class="block text-sm font-medium text-gray-700 mb-1">住所</label>
-                <input type="datetime_local" id="reserved_at" name="reserved_at" value="{{ old('reserved_at', $reservation->reserved_at->format('Y-m-d\TH:i')) }}"
+                <label for="reserved_at" class="block text-sm font-medium text-gray-700 mb-1">予約日時</label>
+                <input type="datetime-local" id="reserved_at" name="reserved_at"
+                    value="{{ old('reserved_at', $reservation->reserved_at->format('Y-m-d H:i')) }}"
                     class="w-full border rounded px-3 py-2 focus:outline-none focus:ring">
                 @error('reserved_at')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -23,10 +24,10 @@
             </div>
 
             <div class="mb-6">
-                <label for="description" class="block text-sm font-medium text-gray-700 mb-1">説明</label>
-                <textarea id="description" name="description" rows="4"
-                    class="w-full border rounded px-3 py-2 focus:outline-none focus:ring" placeholder="任意：店舗説明を入力してください">{{ old('description', $shop->description) }}</textarea>
-                @error('description')
+                <label for="note" class="block text-sm font-medium text-gray-700 mb-1">メモ</label>
+                <textarea id="note" name="note" rows="4"
+                    class="w-full border rounded px-3 py-2 focus:outline-none focus:ring" placeholder="任意：店舗に事前に伝えておきたいことを入力してください">{{ old('note', $reservation->note) }}</textarea>
+                @error('note')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>

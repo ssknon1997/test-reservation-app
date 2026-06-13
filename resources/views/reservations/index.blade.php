@@ -36,9 +36,9 @@
                                 <td class="px-4 py-3">{{ $reservation->shop->name }}</td>
                                 <td class="px-4 py-3">{{ $reservation->reserved_at->format('Y/m/d H:i') }}</td>
                                 <td class="px-4 py-3">
-                                    @if($reservatiom->status === 'pending')
+                                    @if($reservation->status === 'pending')
                                         <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">保留中</span>
-                                    @elseif($reservatiom->status === 'confirmed')
+                                    @elseif($reservation->status === 'confirmed')
                                         <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">確定</span>
                                     @else
                                         <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs">キャンセル</span>
@@ -47,9 +47,9 @@
                                 <td class="px-4 py-3 flex gap-2">
                                     <a href="{{ route('reservations.show', $reservation) }}"
                                         class="text-blue-500 hover:underline">詳細</a>
-                                    <a href="{{ route('reservation.edit', $reservation) }}"
+                                    <a href="{{ route('reservations.edit', $reservation) }}"
                                         class="text-yellow-500 hover:underline">編集</a>
-                                    <form action="{{ route('reservation.destroy', $reservation) }}" method="POST"
+                                    <form action="{{ route('reservations.destroy', $reservation) }}" method="POST"
                                         onsubmit="return confirm('キャンセルしますか')">
                                         @csrf
                                         @method('DELETE')
@@ -63,7 +63,7 @@
             </div>
 
             <div class="mt-6">
-                {{ $shops->links() }}
+                {{ $reservations->links() }}
             </div>
         @endif
     </div>

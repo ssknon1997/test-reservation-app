@@ -21,7 +21,7 @@ class ReservationController extends Controller
             ->reservations()
             ->with('shop')
             ->latest()
-            ->pagenate(10);
+            ->paginate(10);
         return view('reservations.index', compact('reservations'));
     }
 
@@ -43,7 +43,7 @@ class ReservationController extends Controller
     {
         auth()->user()->reservations()->create($request->validated());
         return redirect()->route('reservations.index')
-            ->with('succes', '予約を作成しました');
+            ->with('success', '予約を作成しました');
     }
 
     /**
@@ -71,8 +71,8 @@ class ReservationController extends Controller
     {
         $this->authorize('update', $reservation);
         $reservation->update($request->validated());
-        return redirect()->route(reservations.index)
-            ->with('succes', '予約を更新しました');
+        return redirect()->route('reservations.index')
+            ->with('success', '予約を更新しました');
     }
 
     /**
@@ -83,6 +83,6 @@ class ReservationController extends Controller
         $this->authorize('delete', $reservation);
         $reservation->delete();
         return redirect()->route('reservations.index')
-            ->with('succes', '予約をキャンセルしました');
+            ->with('success', '予約をキャンセルしました');
     }
 }
