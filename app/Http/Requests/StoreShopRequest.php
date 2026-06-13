@@ -36,7 +36,7 @@ class StoreShopRequest extends FormRequest
         'name.required'   => '店舗名は必須です',
         'name.max'        => '店舗名は255文字以内で入力してください',
         'address.required' => '住所は必須です',
-        'addres.max'      => '店舗名は必須です',
+        'address.max'      => '店舗名は必須です',
         ];
     }
 }

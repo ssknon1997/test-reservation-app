@@ -4,14 +4,14 @@ use App\Models\Shop;
 use App\Models\User;
 
 test('店舗一覧はログインしていなくても見られる', function() {
-    $respose = $this->get(route('shops.index'));
-    $respose->assetStatus(200);
+    $response = $this->get(route('shops.index'));
+    $response->assertStatus(200);
 });
 
 test('店舗詳細はログインしていなくても見られる', function() {
     $shop = Shop::factory()->create();
-    $respose = $this->get(route('shops.show', $shop));
-    $respose->assetStatus(200);
+    $response = $this->get(route('shops.show', $shop));
+    $response->assertStatus(200);
 });
 
 test('オーナーは店舗を作成できる', function () {

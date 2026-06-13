@@ -9,7 +9,7 @@ test('一般ユーザーは予約を作成できる', function() {
     $user = User::factory()->create(['role' => 'user']);
     $shop = Shop::factory()->create();
 
-    $respose = $this->actionAs($user)->post(route('reservations.store', [
+    $response = $this->actingAs($user)->post(route('reservations.store', [
         'shop_id'     => $shop->id,
         'reserved_at' => now()->addDays(3)->format('Y-m-d H:i:s'),
         'note'        => 'テストメモ',
