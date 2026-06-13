@@ -33,7 +33,7 @@ class ReservationController extends Controller
         $this->authorize('create', Reservation::class);
         $shop = request('shop_id') ? Shop::findOrFail(request('shop_id')) : null;
         $shops = Shop::all();
-        return view('reservation.create', compact('shops', 'shop'));
+        return view('reservations.create', compact('shops', 'shop'));
     }
 
     /**
@@ -42,7 +42,7 @@ class ReservationController extends Controller
     public function store(StoreReservationRequest $request)
     {
         auth()->user()->reservations()->create($request->validated());
-        return redirect()->route('reservation.index')
+        return redirect()->route('reservations.index')
             ->with('succes', '予約を作成しました');
     }
 
@@ -71,7 +71,7 @@ class ReservationController extends Controller
     {
         $this->authorize('update', $reservation);
         $reservation->update($request->validated());
-        return redirect()->route(reservation.index)
+        return redirect()->route(reservations.index)
             ->with('succes', '予約を更新しました');
     }
 
@@ -82,7 +82,7 @@ class ReservationController extends Controller
     {
         $this->authorize('delete', $reservation);
         $reservation->delete();
-        return redirect()->route('reservation.index')
+        return redirect()->route('reservations.index')
             ->with('succes', '予約をキャンセルしました');
     }
 }
